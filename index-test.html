@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Directory of Chinese Businesses in Canada">
+    <title>Directory of Chinese Businesses</title>
+    
+    <!-- External Libraries -->
+    <link href="https://unpkg.com/tabulator-tables@5.5.2/dist/css/tabulator.min.css" rel="stylesheet">
+    <script src="https://unpkg.com/tabulator-tables@5.5.2/dist/js/tabulator.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+
+    <style>
+         body {
+            padding: 20px;
+            font-family: Arial, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        #businessTable {
+            margin: 20px 0;
+            flex-grow: 1;
+        }
+        .search-container {
+            margin: 20px 0;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        .search-container input {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            width: 300px;
+        }
+        .clear-button {
+            padding: 8px 16px;
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .clear-button:hover {
+            background-color: #e9ecef;
+        }
+        #tableSearch:focus {
+            outline: none;
+            border-color: #4CAF50;
+            box-shadow: 0 0 5px rgba(76, 175, 80, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Directory of Chinese Businesses</h1>
+    </header>
+
+    <main>
+        <div class="search-container">
+            <input type="text" id="tableSearch" placeholder="Search table...">
+            <button class="clear-button" id="clearAll">Clear All</button>
+        </div>
+        <div id="businessTable">
+            <div class="loading">Loading data...</div>
+        </div>
+    </main>
+
+    <!-- Custom JS -->
+    <script src="script-test copy.js"></script>
+</body>
+</html>
