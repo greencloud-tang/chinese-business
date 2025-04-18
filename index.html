@@ -8,9 +8,16 @@
     
     <!-- External Libraries -->
     <link href="https://unpkg.com/tabulator-tables@5.5.2/dist/css/tabulator.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css" />
+<link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css" />
+<script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
     <script src="https://unpkg.com/tabulator-tables@5.5.2/dist/js/tabulator.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/wordcloud2.js/1.2.2/wordcloud2.min.js"></script>
+
 
     <style>
          body {
@@ -19,6 +26,18 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
+        }
+        #map { height: 600px; width: 100%; } /* Adjust height as needed */
+        #wordCloudCanvas1, #wordCloudCanvas2 {
+        border: 1px solid #ccc;
+        height: 600px; 
+        width: 100%;
+    }
+    .hidden {
+            display: none;
+        }
+        .visible {
+            display: block;
         }
         #businessTable {
             margin: 20px 0;
@@ -36,32 +55,53 @@
             border-radius: 4px;
             width: 300px;
         }
-        .clear-button {
+        .button {
             padding: 8px 16px;
             background-color: #f8f9fa;
             border: 1px solid #ddd;
             border-radius: 4px;
             cursor: pointer;
         }
-        .clear-button:hover {
+        .button:hover {
             background-color: #e9ecef;
         }
+
+        .search-container #toggleButton {
+        margin-left: auto; /* Push the button to the right */
+        }
+
         #tableSearch:focus {
             outline: none;
             border-color: #4CAF50;
             box-shadow: 0 0 5px rgba(76, 175, 80, 0.2);
         }
+        .tabulator .tabulator-tableholder .tabulator-table .tabulator-cell {
+            white-space: normal;
+        }
     </style>
 </head>
 <body>
     <header>
-        <h1>Directory of Chinese Businesses</h1>
+        <h1>Directory of Chinese Businesses in the United States and Canada in the Early 20th Century</h1>
     </header>
 
     <main>
+        <div id="map" class="visible"></div>
+        <div id="wordCloudBlock" style="display: none;" class="hidden">
+            <div style="width: 50%;">
+              <h3>Businees Types (Chinese)</h3>
+              <canvas id="wordCloudCanvas1" height="300"></canvas>
+            </div>
+            <div style="width: 50%;">
+              <h3>Business Types (Sectors)</h3>
+              <canvas id="wordCloudCanvas2" height="300"></canvas>
+            </div>
+        </div>
         <div class="search-container">
             <input type="text" id="tableSearch" placeholder="Search table...">
-            <button class="clear-button" id="clearAll">Clear All</button>
+            <button class="button" id="clearAll">Clear All</button>
+            <div id="filteredRowCount">Total results: <span id="rowCount">0</span></div>
+             <button class="button" id="toggleButton">Show Business Word Clouds</button>
         </div>
         <div id="businessTable">
             <div class="loading">Loading data...</div>
@@ -69,6 +109,6 @@
     </main>
 
     <!-- Custom JS -->
-    <script src="script-test.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
